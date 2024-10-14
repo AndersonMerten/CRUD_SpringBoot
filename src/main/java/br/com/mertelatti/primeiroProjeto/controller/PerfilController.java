@@ -3,7 +3,6 @@ package br.com.mertelatti.primeiroProjeto.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,36 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.mertelatti.primeiroProjeto.dto.UsuarioDTO;
-import br.com.mertelatti.primeiroProjeto.service.UsuarioService;
+import br.com.mertelatti.primeiroProjeto.dto.PerfilDTO;
+import br.com.mertelatti.primeiroProjeto.service.PerfilService;
 
 @RestController
-@RequestMapping(value = "/usuario")
 @CrossOrigin
-public class UsuarioController {
+@RequestMapping(value = "/perfil")
+public class PerfilController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private PerfilService perfilService;
 	
 	@GetMapping
-	public List<UsuarioDTO> listarTodos(){
-		return usuarioService.listarTodos();
+	public List<PerfilDTO> listarTodos(){
+		return perfilService.listarTodos();
 	}
 	
 	@PostMapping
-	public void inserir (@RequestBody UsuarioDTO usuario) {
-		usuarioService.inserir(usuario);
+	public void inserir (@RequestBody PerfilDTO perfil) {
+		perfilService.inserir(perfil);
 	}
 	
 	@PutMapping
-	public UsuarioDTO alterar (@RequestBody UsuarioDTO usuario) {
-		return usuarioService.alterar(usuario);
+	public PerfilDTO alterar (@RequestBody PerfilDTO perfil) {
+		return perfilService.alterar(perfil);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> excluir (@PathVariable Long id){
-		usuarioService.excluir(id);
-		return ResponseEntity.ok().build();
+	public void excluir (@PathVariable Long id) {
+		perfilService.excluir(id);
 	}
-	
 }
