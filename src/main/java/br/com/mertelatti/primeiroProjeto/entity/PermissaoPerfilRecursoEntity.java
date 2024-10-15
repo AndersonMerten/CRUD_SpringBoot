@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 
-import br.com.mertelatti.primeiroProjeto.dto.PerfilUsuarioDTO;
+import br.com.mertelatti.primeiroProjeto.dto.PermissaoPerfilRecursoDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,34 +14,35 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name ="Perfil_Usuario")
-public class PerfilUsuarioEntity {
+@Table(name = "Permissao_Perfil_Recurso")
+public class PermissaoPerfilRecursoEntity {
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "Id_Usuario")
-	private UsuarioEntity usuario;
-	
-	@ManyToOne
-	@JoinColumn(name = "Id_Perfil")
+	@JoinColumn(name="id_perfil")
 	private PerfilEntity perfil;
 	
-	public PerfilUsuarioEntity () {
+	@ManyToOne
+	@JoinColumn(name="id_recurso")
+	private RecursoEntity recurso;
+	
+	public PermissaoPerfilRecursoEntity() {
 		
 	}
 	
-	public PerfilUsuarioEntity (PerfilUsuarioDTO perfilUsuario) {
-		BeanUtils.copyProperties(perfilUsuario, this);
-		if(perfilUsuario != null && perfilUsuario.getUsuario() != null) {
-			this.usuario = new UsuarioEntity(perfilUsuario.getUsuario());
+	public PermissaoPerfilRecursoEntity(PermissaoPerfilRecursoDTO permissao) {
+		BeanUtils.copyProperties(permissao, this);
+		if(permissao != null && permissao.getPerfil() != null) {
+			this.perfil = new PerfilEntity(permissao.getPerfil());
 		}
-		if(perfilUsuario != null && perfilUsuario.getPerfil() != null) {
-			this.perfil = new PerfilEntity (perfilUsuario.getPerfil());
-		}
+		if(permissao != null && permissao.getRecurso() != null) {
+			this.recurso = new RecursoEntity(permissao.getRecurso());
+		}		
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -51,20 +52,20 @@ public class PerfilUsuarioEntity {
 		this.id = id;
 	}
 
-	public UsuarioEntity getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(UsuarioEntity usuario) {
-		this.usuario = usuario;
-	}
-
 	public PerfilEntity getPerfil() {
 		return perfil;
 	}
 
 	public void setPerfil(PerfilEntity perfil) {
 		this.perfil = perfil;
+	}
+
+	public RecursoEntity getRecurso() {
+		return recurso;
+	}
+
+	public void setRecurso(RecursoEntity recurso) {
+		this.recurso = recurso;
 	}
 
 	@Override
@@ -80,9 +81,10 @@ public class PerfilUsuarioEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PerfilUsuarioEntity other = (PerfilUsuarioEntity) obj;
+		PermissaoPerfilRecursoEntity other = (PermissaoPerfilRecursoEntity) obj;
 		return Objects.equals(id, other.id);
 	}
+	
 	
 	
 	

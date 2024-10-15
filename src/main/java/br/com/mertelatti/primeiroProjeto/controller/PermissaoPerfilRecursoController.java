@@ -12,35 +12,38 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.mertelatti.primeiroProjeto.dto.PerfilUsuarioDTO;
-import br.com.mertelatti.primeiroProjeto.service.PerfilUsuarioService;
+import br.com.mertelatti.primeiroProjeto.dto.PermissaoPerfilRecursoDTO;
+import br.com.mertelatti.primeiroProjeto.service.PermissaoPerfilRecursoService;
 
 @RestController
 @CrossOrigin
-@RequestMapping (value = "/perfil-usuario")
-public class PerfilUsuarioController {
+@RequestMapping(value = "/permissao-perfil-recurso")
+public class PermissaoPerfilRecursoController {
 
 	@Autowired
-	private PerfilUsuarioService perfilUsuarioService;
+	private PermissaoPerfilRecursoService  permissaoService;
 	
 	@GetMapping
-	public List<PerfilUsuarioDTO> listarTodos(){
-		return perfilUsuarioService.listarTodos();
+	public List<PermissaoPerfilRecursoDTO> listarTodos(){
+		return permissaoService.listarTodos();
 	}
 	
 	@PostMapping
-	public void inserir (@RequestBody PerfilUsuarioDTO perfilUsuario) {
-		perfilUsuarioService.inserir(perfilUsuario);
+	public void inserir (@RequestBody PermissaoPerfilRecursoDTO permissao) {
+		permissaoService.inserir(permissao);
 	}
 	
 	@PutMapping
-	public PerfilUsuarioDTO alterar (@RequestBody PerfilUsuarioDTO perfilUsuario) {
-		return perfilUsuarioService.alterar(perfilUsuario);
+	public PermissaoPerfilRecursoDTO alterar (@RequestBody PermissaoPerfilRecursoDTO permissao) {
+		return permissaoService.alterar(permissao);
 	}
 
 	@DeleteMapping("/{id}")
 	public void excluir (@PathVariable Long id) {
-		perfilUsuarioService.excluir(id);
+		permissaoService.excluir(id);
 	}
+	
 	
 }
