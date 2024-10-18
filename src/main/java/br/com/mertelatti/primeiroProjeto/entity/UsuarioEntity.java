@@ -5,8 +5,11 @@ import java.util.Objects;
 import org.springframework.beans.BeanUtils;
 
 import br.com.mertelatti.primeiroProjeto.dto.UsuarioDTO;
+import br.com.mertelatti.primeiroProjeto.entity.enums.TipoSituacaoUsuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,6 +34,10 @@ public class UsuarioEntity {
 	
 	@Column(nullable = false)
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private TipoSituacaoUsuario situacao;
 	
 	//converte a entity  em um DTO - Data transfer object
 	public UsuarioEntity(UsuarioDTO usuario) {
@@ -79,6 +86,14 @@ public class UsuarioEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public TipoSituacaoUsuario getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(TipoSituacaoUsuario situacao) {
+		this.situacao = situacao;
 	}
 
 	@Override
